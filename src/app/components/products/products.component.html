@@ -1,0 +1,72 @@
+<div class="container">
+  
+  <section class="mb-4 mt-3" *ngIf="products.length > 0">
+    <div class="row g-4 mt-3">
+      <div
+        *ngFor="
+          let product of products
+            | paginate
+              : {
+                  id: 'productPaginate',
+                  itemsPerPage: pageSize,
+                  currentPage: currentPage,
+                  totalItems: total
+                }
+        "
+        class="col-sm-6 col-md-4 col-lg-3"
+      >
+        <div class="product h-100 px-3 py-2">
+          <header [routerLink]="['/productdetails', product._id]" role="button">
+            <img
+              class="w-100"
+              [src]="product.imageCover"
+              [alt]="product.title"
+              [title]="product.title"
+            />
+            <h4 class="h6 small text-main mt-2">{{ product.category.name }}</h4>
+            <h3 class="fw-bold title">{{ product.title | cuttext : 3 }}</h3>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="small">{{ product.price }} EGP</span>
+              <span>
+                <i class="fas fa-star rating-color"></i>
+                <span class="text-muted">{{ product.ratingsAverage }}</span>
+              </span>
+            </div>
+          </header>
+
+          <footer
+            class="mt-2 d-flex align-items-center justify-content-between"
+          >
+            <button
+              (click)="addProduct(product._id, btnAdd)"
+              #btnAdd
+              class="main-btn w-75 py-2"
+            >
+              +Add to Cart
+            </button>
+            <i class="fa fa-heart fs-4"></i>
+          </footer>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center my-5">
+      <pagination-controls
+        id="productPaginate"
+        (pageChange)="pageChanged($event)"
+        (pageBoundsCorrection)="pageChanged($event)"
+        [maxSize]="9"
+        [directionLinks]="true"
+        [autoHide]="true"
+        [responsive]="true"
+        previousLabel="Previous"
+        nextLabel="Next"
+        screenReaderPaginationLabel="Pagination"
+        screenReaderPageLabel="page"
+        screenReaderCurrentLabel="You're on page"
+      >
+      </pagination-controls>
+    </div>
+  </section>
+</div>

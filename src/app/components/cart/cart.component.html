@@ -1,0 +1,63 @@
+<section
+  class="container mx-auto rounded bg-light my-3 p-4"
+  *ngIf="cartDetails; else msg"
+>
+  <div class="d-flex align-items-center justify-content-between">
+    <h1 class="h2">Shop Cart</h1>
+    <div>
+      <button (click)="clear()" class="btn btn-sm btn-outline-danger mx-1">Clear Your Cart</button>
+      
+      <button [routerLink]="['/payment', cartDetails._id]" class="btn btn-sm btn-primary mx-1">Check Out</button>
+    </div>
+  </div>
+  <p class="text-main">
+    Total Price: {{ cartDetails.totalCartPrice | currency : "EGP " }}
+  </p>
+
+  <div class="row border-bottom py-2" *ngFor="let item of cartDetails.products">
+    <div class="col-md-2">
+      <img
+        class="w-100"
+        [src]="item.product.imageCover"
+        [alt]="item.product.title"
+      />
+    </div>
+
+    <div class="col-md-10 d-flex align-items-center justify-content-between">
+      <div>
+        <h3 class="fs-6 fw-bolder">{{ item.product.title }}</h3>
+        <p class="fw-bolder small">{{ item.price | currency : "EGP " }}</p>
+        <button
+          (click)="removeItem(item.product._id)"
+          class="btn m-0 p-0 btnRemove"
+        >
+          <i class="fas fa-trash"></i> Remove
+        </button>
+      </div>
+
+      <div>
+        <button
+          #btn1
+          (click)="changeCount(item.count - 1, item.product._id, btn1, btn2)"
+          class="btn mx-2 btn-sm border-success"
+        >
+          -
+        </button>
+        <span>{{ item.count }}</span>
+        <button
+          #btn2
+          (click)="changeCount(item.count + 1, item.product._id, btn1, btn2)"
+          class="btn mx-2 btn-sm border-success"
+        >
+          +
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #msg>
+  <div class="d-flex align-items-center justify-content-center msgDiv">
+    <h2 class="text-center text-main">Your Cart is Empty ...</h2>
+  </div>
+</ng-template>

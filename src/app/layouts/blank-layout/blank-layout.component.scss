@@ -1,0 +1,27 @@
+$main-color:#0aad0a;
+
+:host{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+router-outlet{
+    padding-top: 60px;
+}
+
+.btn-up{
+    position: fixed;
+    background-color: $main-color;
+    bottom: 10px;
+    right: 10px;
+    z-index: 99;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+}

@@ -1,0 +1,22 @@
+.product {
+    overflow: hidden;
+
+    &:hover{
+        .main-btn{
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    .main-btn{
+        transform: translateY(200%);
+        opacity: 0;
+        transition: 0.8s;
+    }
+
+
+}
+
+.title{
+    font-size: 15px;
+}

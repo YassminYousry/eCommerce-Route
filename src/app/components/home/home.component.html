@@ -1,0 +1,108 @@
+<section>
+  <div class="row g-0">
+    <div class="col-md-9">
+      <owl-carousel-o [options]="mainSlideOptions">
+        <ng-template carouselSlide>
+          <img
+            height="400"
+            src="./assets/images/slider-image-1.jpeg"
+            alt="Slide 1"
+          />
+        </ng-template>
+
+        <ng-template carouselSlide>
+          <img
+            height="400"
+            src="./assets/images/slider-image-2.jpeg"
+            alt="Slide 2"
+          />
+        </ng-template>
+
+        <ng-template carouselSlide>
+          <img
+            height="400"
+            src="./assets/images/slider-image-3.jpeg"
+            alt="Slide 3"
+          />
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+
+    <div class="col-md-3">
+      <img
+        class="w-100"
+        height="200"
+        src="../../../assets/images/baaags.jpg"
+        alt="grocery-banner"
+      />
+      <img
+        class="w-100"
+        height="200"
+        src="../../../assets/images/guitar.jpg"
+        alt="grocery-banner"
+      />
+    </div>
+  </div>
+</section>
+
+<section class="py-4 w-100" *ngIf="categories.length > 0">
+  <owl-carousel-o [options]="categoryOptions">
+    <ng-container *ngFor="let category of categories">
+      <ng-template carouselSlide>
+        <img
+          height="250"
+          [src]="category.image"
+          [alt]="category.name"
+          [title]="category.name"
+        />
+
+        <h3 class="h6 fw-bold text-center small mt-2">{{ category.name }}</h3>
+      </ng-template>
+    </ng-container>
+  </owl-carousel-o>
+</section>
+
+<div class="container">
+  <section class="mb-4 mt-3" *ngIf="products.length > 0">
+
+    <input type="text" class="form-control form-control-sm my-3 w-75 mx-auto" placeholder="Search..." [(ngModel)]="term">
+
+    <div class="row g-4 mt-3">
+      <div *ngFor="let product of products | search:term" class="col-sm-6 col-md-4 col-lg-3">
+        <div class="product h-100 px-3 py-2">
+          <header [routerLink]="['/productdetails', product._id]" role="button">
+            <img
+              class="w-100"
+              [src]="product.imageCover"
+              [alt]="product.title"
+              [title]="product.title"
+            />
+            <h4 class="h6 small text-main mt-2">{{ product.category.name }}</h4>
+            <h3 class="fw-bold title">{{ product.title | cuttext : 3 }}</h3>
+
+            <div class="d-flex justify-content-between align-items-center">
+              <span class="small">{{ product.price }} EGP</span>
+              <span>
+                <i  class="fas fa-star rating-color"></i>
+                <span class="text-muted">{{ product.ratingsAverage }}</span>
+              </span>
+            </div>
+          </header>
+
+          <footer
+            class="mt-2 d-flex align-items-center justify-content-between"
+          >
+            <button
+              (click)="addProduct(product._id, btnAdd)"
+              #btnAdd
+              class="main-btn w-75 py-2"
+            >
+              +Add to Cart
+            </button>
+            <i class="fa fa-heart fs-4"></i>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

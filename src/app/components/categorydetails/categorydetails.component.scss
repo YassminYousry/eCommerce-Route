@@ -1,0 +1,8 @@
+.subcat{
+
+    transition: all 0.8s;
+
+    &:hover{
+        box-shadow: 1px 0px 15px 1px green;
+    }
+}
